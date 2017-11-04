@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+   <head th:replace="fragments/fragment :: headerFragment(title='View All Students')">    
+   		<link rel="stylesheet" href="/css/bootstrap.min.css"/>
+       
+   </head>
+    
+    <body>
+        <h1><center>View All Students</center></h1>
+        <div th:replace="fragments/fragment :: header"></div>
+		
+        
+        <table id="viewallStudents" class="display" cellspacing="0" width="100%">
+        <thead>
+	        	<tr>
+	        		<th>NO</th>
+	        		<th>NPM</th>
+	        		<th>Name</th>
+	        		<th>GPA</th>
+	        		<th>Keterangan</th>
+	        		<th>Delete</th>
+	        		<th>Update</th>
+	        	</tr>
+        </thead>
+        <tbody>
+        	<div th:each="student,iterationStatus: ${students}" th:class="${iterationStatus.odd}?'odd'">
+	           	<tr>
+	           		 <td th:text= "${iterationStatus.count}"></td>
+				     <td th:text="${student.npm}">Student NPM</td>
+	       			 <td th:text="${student.name}">Student Name</td>
+	    		   	 <td th:text="${student.gpa}">Student GPA</td>
+	       			 <td th:text="${student.gpa>=3.49 ? 'Cumlaude':'Sangat Memuaskan!' }"></td>
+	       			 <td> <a th:href="'/student/delete/' + ${student.npm}" > Delete Data </a></td>
+	       			 <td> <a th:href="'/student/update/' + ${student.npm}" > Update Data </a></td>
+	        	</tr>
+    		</div>    
+       </tbody>	
+       </table>
+       
+    <script>
+		$(document).ready(function() {
+			$('#viewallStudents').DataTable({
+			});
+		});
+	</script>
+	
+    	
+    
+     <div th:replace="fragments/fragment :: footer"></div> 	
+    </body>
+</html>
